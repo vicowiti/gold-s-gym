@@ -1,7 +1,12 @@
 # Gold's Gym
 
 App is live [Here](https://gym-gold.netlify.app/)
-<img src="./src//assets/images/goldgymlaptop.png"  width="350px"/>
+<br/>
+<br/>
+
+<div>
+<img src="./src//assets/images/goldgymlaptop.png"  width="900px"/>
+</div>
 
 ## A fitness web application where users can get exercises to enable them stay fit at the comfort of their homes
 
