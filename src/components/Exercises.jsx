@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { fetchData, exerciseOptions } from "../utils/fetchData";
 import { Box, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import ExerciseCard from "./ExerciseCard";
 
 const Exercises = ({ setExercises, bodyPart, exercises }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const exercisesPerPage = 9;
+
+  const indexOfLastExercise = currentPage * exercisesPerPage;
+
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+
+  const currentExercises = exercises.slice(
+    indexOfFirstExercise,
+    indexOfLastExercise
+  );
+
+  function paginate(e, value) {
+    setCurrentPage(value);
+
+    window.scrollTo({ top: "1800px", behavior: "smooth" });
+  }
+
   return (
     <Box
       id="exercises"
@@ -31,11 +50,23 @@ const Exercises = ({ setExercises, bodyPart, exercises }) => {
           justifyContent: "center",
         }}
       >
-        {exercises.map((exercise, index) => (
+        {currentExercises.map((exercise, index) => (
           <ExerciseCard exercise={exercise} key={index} />
         ))}
       </Stack>
-      <Pagination count={10} color="primary" />
+      <Stack mt="100px" alignItems="center">
+        {exercises.length > 9 ? (
+          <Pagination
+            count={Math.ceil(exercises.length / exercisesPerPage)}
+            color="standard"
+            shape="rounded"
+            page={currentPage} //state
+            onChange={paginate} //page changing function
+          />
+        ) : (
+          ""
+        )}
+      </Stack>
     </Box>
   );
 };
